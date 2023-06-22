@@ -5,7 +5,7 @@ from pathlib import Path
 import zipfile
 import tarfile
 
-from normalize import normalize
+from sorter.normalize import normalize
 
 
 # Список розширень для кожної категорії
@@ -39,7 +39,7 @@ def process_folder(folder_path):
 
     path = Path(folder_path)
     
-    for element in path.glob("**\*"):
+    for element in path.glob("**/*"):
     
         if element.is_file():
             file_name = element.stem
@@ -93,8 +93,7 @@ def delete_empty_folders(folder_path):
         if element.is_dir() and not any(element.iterdir()):
             element.rmdir()
 
-
-if __name__ == '__main__':
+def main():
     if len(sys.argv) < 2:
         print('Потрібно вказати шлях до папки.')
         sys.exit(1)
@@ -109,3 +108,8 @@ if __name__ == '__main__':
     process_folder(target_folder)
     unpack_archives(target_folder)
     print('Операція завершена успішно.')
+
+if __name__ == '__main__':
+    main()
+    
+
